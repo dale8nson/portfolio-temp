@@ -1,59 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Dale Hutchinson – Portfolio</title>
-  <style>
-    body {
-      background-color: #111;
-      color: #fff;
-      font-family: system-ui, sans-serif;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-      text-align: center;
-    }
-    h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-    }
-    h2 {
-      font-size: 1.5rem;
-      font-weight: 400;
-      color: #aaa;
-      margin-bottom: 1rem;
-    }
-    p {
-      font-size: 1.2rem;
-      color: #ccc;
-      margin: 0;
-      width: 28%;
-    }
-    .links {
-      margin-top: 1.5rem;
-    }
-    .links a {
-      color: #00adee;
-      text-decoration: none;
-      margin: 0 1rem;
-    }
-    .links a:hover {
-      color: #33cdff;
-    }
-  </style>
-</head>
-<body>
-  <h1>Dale Hutchinson</h1>
-  <h2>daletristanhutchinson.com</h2>
-  <p>A new version of this website is under construction. In the meantime, please check out the following links below!</p>
-  <div class="links">
-    <a href="https://github.com/dale8nson" target="_blank">GitHub</a>
-    <a href="https://www.linkedin.com/in/dale-tristan-hutchinson" target="_blank">LinkedIn</a>
-    <a href="mailto:daletristanhutchinson@gmail.com">Email</a>
-    <a href="https://3d.daletristanhutchinson.com" target="_blank">3D Portfolio</a>
-  </div>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dale Hutchinson – Portfolio</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        background-color: #111;
+        color: #eee;
+        font-family: system-ui, sans-serif;
+        overflow: hidden;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+      }
+
+      .header {
+        flex: 0 0 22%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        text-align: center;
+        border-bottom: 1px solid #333;
+      }
+
+      .header h1 {
+        font-size: 2.75rem;
+        margin: 0.2rem 0;
+      }
+
+      .header h2 {
+        font-size: 1.25rem;
+        font-weight: 400;
+        color: #aaa;
+        margin-bottom: 0.5rem;
+      }
+
+      .header p {
+        font-size: 1.1rem;
+        color: #ccc;
+        margin: 0.5rem 0;
+        max-width: 700px;
+      }
+
+      .buttons {
+        margin-top: 0.5rem;
+      }
+
+      .buttons a {
+        display: inline-block;
+        margin: 0.3rem 0.5rem;
+        padding: 0.5rem 1rem;
+        background-color: #222;
+        color: #00adee;
+        border: 1px solid #00adee;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+
+      .buttons a:hover {
+        background-color: #00adee;
+        color: #111;
+        border-color: #00adee;
+      }
+
+      .content {
+        flex: 1;
+        overflow-y: auto;
+        padding: 2rem 1rem;
+        text-align: center;
+      }
+
+      .project {
+        margin: 2rem auto;
+        max-width: 800px;
+      }
+
+      .project h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.2rem;
+      }
+
+      .project p {
+        color: #ccc;
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .future {
+        font-size: 0.95rem;
+        color: #777;
+        margin-top: 2.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Dale Hutchinson</h1>
+        <h2>daletristanhutchinson.com</h2>
+        <p>
+          A new version of this site is under construction. In the meantime,
+          here are some of my current and in-progress projects:
+        </p>
+        <div class="buttons">
+          <a href="https://github.com/dale8nson" target="_blank">GitHub</a>
+          <a
+            href="https://www.linkedin.com/in/dale-tristan-hutchinson"
+            target="_blank"
+            >LinkedIn</a
+          >
+          <a href="mailto:daletristanhutchinson@gmail.com">Email</a>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="project">
+          <h3>ZendoAI – Generative AI Platform</h3>
+          <p>
+            Full-stack Rust, FastAPI, and Next.js platform for training and
+            generating images with custom ML models.
+          </p>
+          <div class="buttons">
+            <a href="https://zendoai.fly.dev" target="_blank">Live</a>
+            <a href="https://github.com/dale8nson/zendo" target="_blank"
+              >GitHub</a
+            >
+          </div>
+        </div>
+
+        <div class="project">
+          <h3>Finoracle – Stock Analysis SPA</h3>
+          <p>
+            Rust-based single-page app for stock quote search and graphing,
+            built with Dioxus.
+          </p>
+          <div class="buttons">
+            <a href="https://tinyurl.com/finoracle" target="_blank">Live</a>
+            <a href="https://github.com/dale8nson/finoracle" target="_blank"
+              >GitHub</a
+            >
+          </div>
+        </div>
+
+        <div class="project">
+          <h3>3D Portfolio Website</h3>
+          <p>
+            Experimental React Three Fiber site demonstrating 3D UI concepts for
+            an interactive portfolio.
+          </p>
+          <div class="buttons">
+            <a href="https://3d.daletristanhutchinson.com" target="_blank"
+              >Live</a
+            >
+            <a href="https://github.com/dale8nson/portfolio-3d" target="_blank"
+              >GitHub</a
+            >
+          </div>
+        </div>
+
+        <div class="project">
+          <h3>Smarcomms Landing Page Clone</h3>
+          <p>
+            Responsive marketing site clone based on Figma design, built with
+            Next.js and Tailwind CSS.
+          </p>
+          <div class="buttons">
+            <a href="https://tinyurl.com/marketing-page" target="_blank"
+              >Live</a
+            >
+            <a
+              href="https://github.com/dale8nson/marketing-website"
+              target="_blank"
+              >GitHub</a
+            >
+          </div>
+        </div>
+
+        <div class="project">
+          <h3>Solana Landing Page Clone</h3>
+          <p>
+            High-fidelity implementation of Solana.com landing page using
+            Tailwind CSS, GSAP, and Next.js.
+          </p>
+          <div class="buttons">
+            <a href="https://tinyurl.com/solana-clone" target="_blank">Live</a>
+            <a href="https://github.com/dale8nson/solana" target="_blank"
+              >GitHub</a
+            >
+          </div>
+        </div>
+
+        <p class="future">
+          Coming soon: <strong>ZendoShader</strong> — a Rust–Metal GPU
+          acceleration backend for image preprocessing and ML pipelines.
+        </p>
+      </div>
+    </div>
+  </body>
 </html>

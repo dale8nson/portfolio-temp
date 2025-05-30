@@ -3,19 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dale Hutchinson – Portfolio</title>
+    <title>Dale Hutchinson</title>
     <style>
+      :root {
+        --card-bg: #1e1e1e;
+        --card-fg: white;
+        --link-color: #3ea6ff;
+        --bg-color: #0e0e0e;
+        --button-bg: #007bff;
+        --button-hover: #0056b3;
+        --placeholder-bg: #000;
+      }
+
       body {
+        font-family: sans-serif;
         margin: 0;
-        font-family: system-ui, sans-serif;
-        background: linear-gradient(to bottom, #0a0a0a 0%, #111927 100%);
-        color: #eee;
+        background-color: var(--bg-color);
+        color: var(--card-fg);
       }
 
       header {
-        background: linear-gradient(to right, #007cf0, #00dfd8);
+        background: linear-gradient(to right, #00c6ff, #0072ff);
+        color: white;
+        padding: 1.5rem 0 1rem;
         text-align: center;
-        padding: 2rem 1rem 1.5rem;
+        position: relative;
       }
 
       header h1 {
@@ -25,114 +37,108 @@
 
       header p {
         margin: 0.25rem 0 1rem;
-        color: #222;
-        font-size: 0.9rem;
-      }
-
-      .buttons {
-        margin-top: 0.5rem;
-      }
-
-      .buttons a {
-        display: inline-block;
-        margin: 0 0.25rem;
-        padding: 0.4rem 0.8rem;
-        background: #111;
+        font-weight: 500;
         color: white;
-        border-radius: 5px;
-        font-size: 0.85rem;
+      }
+
+      .links {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .links a {
+        background: black;
+        color: white;
+        padding: 0.4rem 0.75rem;
+        border-radius: 0.3rem;
         text-decoration: none;
+        transition: background 0.3s;
       }
 
-      .buttons a:hover {
-        background: #222;
+      .links a:hover {
+        background: var(--button-hover);
       }
 
-      main {
-        max-width: 1200px;
-        margin: 2rem auto;
-        padding: 0 1rem;
-        text-align: center;
+      .mode-toggle {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        cursor: pointer;
+        width: 24px;
+        height: 24px;
       }
 
       .intro {
-        margin-bottom: 1.5rem;
-        font-size: 0.95rem;
-        color: #aaa;
+        text-align: center;
+        font-weight: 600;
+        margin: 0.5rem auto 2rem;
+        max-width: 800px;
+        padding: 0 1rem;
       }
 
       .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-        gap: 2rem;
+        display: flex;
+        flex-wrap: wrap;
         justify-content: center;
+
+        padding: 1rem;
+        max-width: 1200px;
+        margin: auto;
+        grid-gap: 3rem;
       }
 
       .card {
-        background: #1a1a1a;
-        border-radius: 12px;
-        box-shadow: 0 0 10px #0006;
+        background-color: var(--card-bg);
+        border-radius: 0.75rem;
         overflow: hidden;
+        width: 300px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+        transition: transform 0.2s;
       }
 
       .card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 6px 20px #000a;
+        transform: scale(1.02);
       }
 
-      .card-image {
-        height: 180px;
-        background: #0a0a0a;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.5rem;
-      }
-
-      .card-image img {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: contain;
+      .card img,
+      .card svg {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        background: var(--placeholder-bg);
       }
 
       .card-content {
         padding: 1rem;
-        text-align: left;
-      }
-
-      .card-content h3 {
-        font-size: 1rem;
-        margin: 0 0 0.25rem;
-        color: #fff;
-      }
-
-      .card-content p {
-        font-size: 0.85rem;
-        color: #ccc;
-      }
-
-      .card-buttons {
         display: flex;
-        justify-content: flex-start;
+        flex-direction: column;
         gap: 0.5rem;
-        padding: 0 1rem 1rem;
       }
 
-      .card-buttons a {
-        padding: 0.4rem 0.75rem;
-        font-size: 0.75rem;
-        border-radius: 5px;
-        background: #007cf0;
+      .buttons {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .buttons a {
+        background-color: var(--button-bg);
         color: white;
+        padding: 0.3rem 0.6rem;
+        border-radius: 0.3rem;
+        font-size: 0.8rem;
         text-decoration: none;
       }
 
-      .card-buttons a:hover {
-        background: #00dfd8;
+      footer {
+        text-align: center;
+        padding: 1rem;
+        font-size: 0.8rem;
+        color: gray;
       }
     </style>
   </head>
@@ -140,141 +146,162 @@
     <header>
       <h1>Dale Hutchinson</h1>
       <p>daletristanhutchinson.com</p>
-      <div class="buttons">
+      <div class="links">
         <a href="mailto:daletristanhutchinson@gmail.com">Email</a>
-        <a href="https://github.com/dale8nson" target="_blank">GitHub</a>
-        <a
-          href="https://www.linkedin.com/in/dale-tristan-hutchinson"
-          target="_blank"
+        <a href="https://github.com/dale8nson">GitHub</a>
+        <a href="https://www.linkedin.com/in/dale-tristan-hutchinson"
           >LinkedIn</a
         >
       </div>
+      <img
+        class="mode-toggle"
+        id="modeToggle"
+        src="images/light-mode.svg"
+        alt="Toggle Theme"
+      />
     </header>
 
-    <main>
-      <p class="intro">
-        A new version of this site is under construction. In the meantime, here
-        are some of my current and in-progress projects:
-      </p>
+    <div class="intro">
+      A new version of this site is under construction. In the meantime, here
+      are some of my current and in-progress projects:
+    </div>
 
-      <div class="grid">
-        <div class="card">
-          <div class="card-image">
-            <img src="images/zendo.svg" alt="ZendoAI" />
-          </div>
-          <div class="card-content">
-            <h3>ZendoAI – Generative AI Platform</h3>
-            <p>
-              Full-stack Rust, FastAPI, and Next.js platform for training and
-              generating images with custom ML models.
-            </p>
-          </div>
-          <div class="card-buttons">
-            <a href="https://zendoai.fly.dev" target="_blank">Live</a>
-            <a href="https://github.com/dale8nson/zendo" target="_blank"
-              >GitHub</a
-            >
+    <div class="grid">
+      <div class="card">
+        <img
+          src="images/zendo.svg"
+          alt="ZendoAI logo"
+          style="object-fit:contain"
+        />
+        <div class="card-content">
+          <strong>ZendoAI – Generative AI Platform</strong>
+          <p>
+            Full-stack Rust, FastAPI, and Next.js platform for training and
+            generating images with custom ML models.
+          </p>
+          <div class="buttons">
+            <a href="#">Live</a>
+            <a href="#">GitHub</a>
           </div>
         </div>
+      </div>
 
-        <div class="card">
-          <div class="card-image">
-            <img src="images/finoracle.webp" alt="Finoracle" />
-          </div>
-          <div class="card-content">
-            <h3>Finoracle – Stock Analysis SPA</h3>
-            <p>
-              Rust-based single-page app for stock quote search and graphing,
-              built with Dioxus.
-            </p>
-          </div>
-          <div class="card-buttons">
-            <a href="https://tinyurl.com/finoracle" target="_blank">Live</a>
-            <a href="https://github.com/dale8nson/finoracle" target="_blank"
-              >GitHub</a
-            >
+      <div class="card">
+        <img
+          src="images/finoracle.webp"
+          alt="Finoracle screenshot"
+          style="object-fit:contain"
+        />
+        <div class="card-content">
+          <strong>Finoracle – Stock Analysis SPA</strong>
+          <p>
+            Rust-based single-page app for stock quote search and graphing,
+            built with Dioxus.
+          </p>
+          <div class="buttons">
+            <a href="#">Live</a>
+            <a href="#">GitHub</a>
           </div>
         </div>
+      </div>
 
-        <div class="card">
-          <div class="card-image">
-            <img src="images/portfolio-3d.webp" alt="3D Portfolio" />
-          </div>
-          <div class="card-content">
-            <h3>3D Portfolio Website</h3>
-            <p>
-              Experimental React Three Fiber site demonstrating 3D UI concepts
-              for an interactive portfolio.
-            </p>
-          </div>
-          <div class="card-buttons">
-            <a href="https://3d.daletristanhutchinson.com" target="_blank"
-              >Live</a
-            >
-            <a href="https://github.com/dale8nson/portfolio-3d" target="_blank"
-              >GitHub</a
-            >
+      <div class="card">
+        <img src="images/portfolio-3d.webp" alt="3D Portfolio screenshot" />
+        <div class="card-content">
+          <strong>3D Portfolio Website</strong>
+          <p>
+            Experimental React Three Fiber site demonstrating 3D UI concepts for
+            an interactive portfolio.
+          </p>
+          <div class="buttons">
+            <a href="#">Live</a>
+            <a href="#">GitHub</a>
           </div>
         </div>
+      </div>
 
-        <div class="card">
-          <div class="card-image">
-            <img src="images/smarcomms.webp" alt="Smarcomms" />
-          </div>
-          <div class="card-content">
-            <h3>Smarcomms Landing Page Clone</h3>
-            <p>
-              Responsive marketing site clone based on Figma design, built with
-              Next.js and Tailwind CSS.
-            </p>
-          </div>
-          <div class="card-buttons">
-            <a href="https://tinyurl.com/marketing-page" target="_blank"
-              >Live</a
-            >
-            <a
-              href="https://github.com/dale8nson/marketing-website"
-              target="_blank"
-              >GitHub</a
-            >
+      <div class="card">
+        <img src="images/smarcomms.webp" alt="Smarcomms screenshot" />
+        <div class="card-content">
+          <strong>Smarcomms Landing Page Clone</strong>
+          <p>
+            Responsive marketing site clone based on Figma design, built with
+            Next.js and Tailwind CSS.
+          </p>
+          <div class="buttons">
+            <a href="#">Live</a>
+            <a href="#">GitHub</a>
           </div>
         </div>
+      </div>
 
-        <div class="card">
-          <div class="card-image">
-            <img src="images/solana.webp" alt="Solana Clone" />
-          </div>
-          <div class="card-content">
-            <h3>Solana Landing Page Clone</h3>
-            <p>
-              High-fidelity implementation of Solana.com landing page using
-              Tailwind CSS, GSAP, and Next.js.
-            </p>
-          </div>
-          <div class="card-buttons">
-            <a href="https://tinyurl.com/solana-clone" target="_blank">Live</a>
-            <a href="https://github.com/dale8nson/solana" target="_blank"
-              >GitHub</a
-            >
+      <div class="card">
+        <img src="images/solana.webp" alt="Solana screenshot" />
+        <div class="card-content">
+          <strong>Solana Landing Page Clone</strong>
+          <p>
+            High-fidelity implementation of Solana.com landing page using
+            Tailwind CSS, GSAP, and Next.js.
+          </p>
+          <div class="buttons">
+            <a href="#">Live</a>
+            <a href="#">GitHub</a>
           </div>
         </div>
+      </div>
 
-        <div class="card">
-          <div class="card-image">
-            <img src="images/placeholder.svg" alt="Coming Soon" />
-          </div>
-          <div class="card-content">
-            <h3>ZendoShader – Coming Soon</h3>
-            <p>
-              Rust–Metal GPU acceleration backend for image preprocessing and ML
-              pipelines.
-            </p>
-          </div>
-          <div class="card-buttons">
+      <div class="card">
+        <img
+          src="images/placeholder.svg"
+          alt="ZendoShader placeholder"
+          style="object-fit:contain"
+        />
+        <div class="card-content">
+          <strong>ZendoShader – Coming Soon</strong>
+          <p>
+            Rust–Metal GPU acceleration backend for image preprocessing and ML
+            pipelines.
+          </p>
+          <div class="buttons">
             <a href="#">Coming Soon</a>
           </div>
         </div>
       </div>
-    </main>
+    </div>
+
+    <footer>
+      © 2025 Dale Hutchinson
+    </footer>
+
+    <script>
+      const toggle = document.getElementById("modeToggle");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)")
+        .matches;
+      let isDark = prefersDark;
+
+      function updateMode() {
+        document.body.style.backgroundColor = isDark ? "#0e0e0e" : "#fefefe";
+        document.documentElement.style.setProperty(
+          "--card-bg",
+          isDark ? "#1e1e1e" : "#ffffff"
+        );
+        document.documentElement.style.setProperty(
+          "--card-fg",
+          isDark ? "#ffffff" : "#111111"
+        );
+        document.documentElement.style.setProperty(
+          "--button-bg",
+          isDark ? "#007bff" : "#0056b3"
+        );
+        toggle.src = isDark ? "images/light-mode.svg" : "images/dark-mode.svg";
+      }
+
+      toggle.addEventListener("click", () => {
+        isDark = !isDark;
+        updateMode();
+      });
+
+      updateMode();
+    </script>
   </body>
 </html>

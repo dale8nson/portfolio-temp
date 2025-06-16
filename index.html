@@ -50,6 +50,10 @@
           padding: 1.5rem 0 1rem;
           text-align: center;
           position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
         }
 
         header h1 {
@@ -205,12 +209,16 @@
   </head>
   <body>
     <header>
-      <img
-        class="mode-toggle"
-        id="modeToggle"
-        src="images/light-mode.svg"
-        alt="Toggle Theme"
-      />
+      <div
+        style="display:flex;align-items:middle;justify-content:end;width:100%;"
+      >
+        <img
+          class="mode-toggle"
+          id="modeToggle"
+          src="images/light-mode.svg"
+          alt="Toggle Theme"
+        />
+      </div>
       <h1>Dale Hutchinson</h1>
       <p>daletristanhutchinson.com</p>
       <div class="links">

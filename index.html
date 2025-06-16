@@ -15,6 +15,18 @@
 
       gtag("config", "G-BE7H1SYTT6");
     </script>
+    <script>
+      // Track all buttons and links
+      document.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", e => {
+          gtag("event", "click", {
+            event_category: "Link",
+            event_label: e.currentTarget.href,
+            transport_type: "beacon"
+          });
+        });
+      });
+    </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dale Hutchinson</title>

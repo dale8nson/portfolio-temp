@@ -135,6 +135,7 @@
         border-radius: 0.75rem;
         overflow: hidden;
         width: 100%;
+        height: 440px;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -164,6 +165,54 @@
 
       .card-content p {
         margin: 0;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+      }
+
+      .read-more {
+        color: var(--link-color);
+        font-size: 0.85rem;
+        text-decoration: none;
+      }
+      .read-more:hover { text-decoration: underline; }
+
+      .modal-overlay[hidden], .modal[hidden] { display: none !important; }
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(2px);
+        z-index: 1000;
+      }
+      .modal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: min(640px, 92vw);
+        max-height: 80vh;
+        overflow: auto;
+        background: #111;
+        color: var(--card-fg);
+        border-radius: 0.75rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        padding: 1.25rem 1.25rem 1rem;
+        z-index: 1001;
+      }
+      .modal h3 { margin: 0 0 0.5rem; }
+      .modal p { margin: 0; white-space: pre-wrap; }
+      .modal-close {
+        position: absolute;
+        top: 0.5rem;
+        right: 0.75rem;
+        background: transparent;
+        color: var(--card-fg);
+        border: none;
+        font-size: 1.5rem;
+        line-height: 1;
+        cursor: pointer;
       }
 
       .buttons {
@@ -272,6 +321,7 @@
             alt text for images. Designed for scale with a simple web UI and
             API for batch workflows.
           </p>
+          <a href="#" class="read-more" aria-label="Read more about this project">Read more</a>
           <div class="buttons">
             <a href="#">Coming Soon</a>
           </div>
@@ -292,6 +342,7 @@
 
             * Currently not deployed live due to the costs and limitations of infrastructure, but feel free to check out the project on
           </p>
+          <a href="#" class="read-more" aria-label="Read more about this project">Read more</a>
           <div class="buttons">
             <a href="https://github.com/dale8nson/zendo/tree/dev">GitHub</a>
           </div>
@@ -310,6 +361,7 @@
             Rust-based single-page app for stock quote search and graphing,
             built with Dioxus.
           </p>
+          <a href="#" class="read-more" aria-label="Read more about this project">Read more</a>
           <div class="buttons">
             <a href="https://finoracle.daletristanhutchinson.com">Live</a>
             <a href="https://github.com/dale8nson/finoracle">GitHub</a>
@@ -325,6 +377,7 @@
             Experimental React Three Fiber site demonstrating 3D UI concepts for
             an interactive portfolio.
           </p>
+          <a href="#" class="read-more" aria-label="Read more about this project">Read more</a>
           <div class="buttons">
             <a href="https://3d.daletristanhutchinson.com">Live</a>
             <a href="https://github.com/dale8nson/portfolio-3d">GitHub</a>
@@ -340,6 +393,7 @@
             Responsive marketing site clone based on Figma design, built with
             Next.js and Tailwind CSS.
           </p>
+          <a href="#" class="read-more" aria-label="Read more about this project">Read more</a>
           <div class="buttons">
             <a href="https://marketing-website-theta-five.vercel.app/">Live</a>
             <a href="https://github.com/dale8nson/marketing-website">GitHub</a>
@@ -355,6 +409,7 @@
             High-fidelity implementation of Solana.com landing page using
             Tailwind CSS, GSAP, and Next.js.
           </p>
+          <a href="#" class="read-more" aria-label="Read more about this project">Read more</a>
           <div class="buttons">
             <a href="https://solana-zeta-ten.vercel.app/">Live</a>
             <a href="https://github.com/dale8nson/solana">GitHub</a>
@@ -374,11 +429,28 @@
             Rust–Metal GPU acceleration backend for image preprocessing and ML
             pipelines.
           </p>
+          <a href="#" class="read-more" aria-label="Read more about this project">Read more</a>
           <div class="buttons">
             <a href="#">Coming Soon</a>
           </div>
         </div>
       </div>
+    </div>
+
+    <!-- Modal for full descriptions -->
+    <div id="modalOverlay" class="modal-overlay" hidden></div>
+    <div
+      id="projectModal"
+      class="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modalTitle"
+      aria-describedby="modalDesc"
+      hidden
+    >
+      <button id="modalClose" class="modal-close" aria-label="Close dialog">×</button>
+      <h3 id="modalTitle"></h3>
+      <p id="modalDesc"></p>
     </div>
 
     <footer>© 2025 Dale Hutchinson</footer>
@@ -420,6 +492,45 @@
       });
 
       updateMode();
+
+      // Read more modal
+      const modal = document.getElementById("projectModal");
+      const modalOverlay = document.getElementById("modalOverlay");
+      const modalTitle = document.getElementById("modalTitle");
+      const modalDesc = document.getElementById("modalDesc");
+      const modalClose = document.getElementById("modalClose");
+
+      function openModal(title, desc) {
+        modalTitle.textContent = title || "Project";
+        modalDesc.textContent = desc || "";
+        modal.removeAttribute("hidden");
+        modalOverlay.removeAttribute("hidden");
+        document.body.style.overflow = "hidden";
+        modalClose.focus();
+      }
+
+      function closeModal() {
+        modal.setAttribute("hidden", "");
+        modalOverlay.setAttribute("hidden", "");
+        document.body.style.overflow = "";
+      }
+
+      document.querySelectorAll('.read-more').forEach((link) => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const content = e.currentTarget.closest('.card-content');
+          const title = content?.querySelector('strong')?.textContent?.trim() || '';
+          const desc = content?.querySelector('p')?.textContent?.trim() || '';
+          if (typeof gtag === 'function') {
+            try { gtag('event', 'read_more', { event_category: 'UI', event_label: title }); } catch (err) {}
+          }
+          openModal(title, desc);
+        });
+      });
+
+      modalOverlay.addEventListener('click', closeModal);
+      modalClose.addEventListener('click', closeModal);
+      window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
     </script>
   </body>
 </html>

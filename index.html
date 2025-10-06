@@ -175,6 +175,7 @@
         color: var(--link-color);
         font-size: 0.85rem;
         text-decoration: none;
+        cursor: pointer;
       }
       .read-more:hover { text-decoration: underline; }
 
@@ -534,18 +535,19 @@
         document.body.style.overflow = "";
       }
 
-      document.querySelectorAll('.read-more').forEach((link) => {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          const content = e.currentTarget.closest('.card-content');
-          const title = content?.querySelector('strong')?.textContent?.trim() || '';
-          const descEl = content?.querySelector('p');
-          const descHTML = (descEl?.innerHTML || '').trim();
-          if (typeof gtag === 'function') {
-            try { gtag('event', 'read_more', { event_category: 'UI', event_label: title }); } catch (err) {}
-          }
-          openModal(title, descHTML);
-        });
+      document.addEventListener('click', (e) => {
+        const link = e.target.closest('.read-more');
+        if (!link) return;
+        e.preventDefault();
+        const content = link.closest('.card-content');
+        const title = content?.querySelector('strong')?.textContent?.trim() || '';
+        const descEl = content?.querySelector('p');
+        const descHTML = (descEl?.innerHTML || '').trim();
+        // fire analytics asynchronously to avoid blocking UI
+        if (typeof gtag === 'function') {
+          try { setTimeout(() => gtag('event', 'read_more', { event_category: 'UI', event_label: title }), 0); } catch (err) {}
+        }
+        openModal(title, descHTML);
       });
 
       modalOverlay.addEventListener('click', closeModal);

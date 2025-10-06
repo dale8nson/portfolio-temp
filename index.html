@@ -202,7 +202,12 @@
         z-index: 1001;
       }
       .modal h3 { margin: 0 0 0.5rem; }
-      .modal p { margin: 0; white-space: pre-wrap; }
+      .modal p {
+        margin: 0;
+        white-space: normal;
+        text-align: left;
+        line-height: 1.5;
+      }
       .modal-close {
         position: absolute;
         top: 0.5rem;
@@ -232,6 +237,18 @@
         font-size: 0.8rem;
         text-decoration: none;
       }
+
+      /* Inline button styling for links inside text */
+      .btn-inline {
+        display: inline-block;
+        background-color: var(--button-bg);
+        color: #fff;
+        padding: 0.2rem 0.5rem;
+        border-radius: 0.3rem;
+        font-size: 0.8rem;
+        text-decoration: none;
+      }
+      .btn-inline:hover { background-color: var(--button-hover); }
 
       footer {
         text-align: center;
@@ -338,9 +355,10 @@
           <strong>ZendoAI – Generative AI Platform</strong>
           <p>
             Full-stack Rust, FastAPI, and Next.js platform for training and
-            generating images with custom ML models.
-
-            * Currently not deployed live due to the costs and limitations of infrastructure, but feel free to check out the project on
+            generating images with custom ML models. Currently not deployed live
+            due to the costs and limitations of infrastructure, but feel free to
+            check out the project on
+            <a class="btn-inline" href="https://github.com/dale8nson/zendo/tree/dev">GitHub</a>.
           </p>
           <a href="#" class="read-more" aria-label="Read more about this project">Read more</a>
           <div class="buttons">
@@ -500,9 +518,9 @@
       const modalDesc = document.getElementById("modalDesc");
       const modalClose = document.getElementById("modalClose");
 
-      function openModal(title, desc) {
+      function openModal(title, descHTML) {
         modalTitle.textContent = title || "Project";
-        modalDesc.textContent = desc || "";
+        modalDesc.innerHTML = descHTML || "";
         modal.removeAttribute("hidden");
         modalOverlay.removeAttribute("hidden");
         document.body.style.overflow = "hidden";
@@ -520,11 +538,12 @@
           e.preventDefault();
           const content = e.currentTarget.closest('.card-content');
           const title = content?.querySelector('strong')?.textContent?.trim() || '';
-          const desc = content?.querySelector('p')?.textContent?.trim() || '';
+          const descEl = content?.querySelector('p');
+          const descHTML = (descEl?.innerHTML || '').trim();
           if (typeof gtag === 'function') {
             try { gtag('event', 'read_more', { event_category: 'UI', event_label: title }); } catch (err) {}
           }
-          openModal(title, desc);
+          openModal(title, descHTML);
         });
       });
 

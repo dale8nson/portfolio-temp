@@ -451,15 +451,12 @@
             <div class="code-body">
 <span class="cmt">// Query live ABS + RBA data</span>
 <span class="dim">{</span>
-  <span class="fn">cashRateTarget</span> <span class="dim">{</span> date value <span class="dim">}</span>
-  <span class="fn">cpi</span> <span class="dim">{</span> period value <span class="dim">}</span>
-  <span class="fn">meanHousePrice</span> <span class="dim">{</span>
-    vic <span class="dim">{</span> period value <span class="dim">}</span>
-    nsw <span class="dim">{</span> period value <span class="dim">}</span>
-  <span class="dim">}</span>
-  <span class="fn">grossDomesticProduct</span> <span class="dim">{</span>
-    period value
-  <span class="dim">}</span>
+  <span class="fn">consumerPriceIndex</span><span class="dim">(</span>
+    start<span class="dim">: {</span>year<span class="dim">:</span> <span class="num">2025</span><span class="dim">,</span> month<span class="dim">:</span> <span class="num">1</span><span class="dim">},</span>
+    end<span class="dim">: {</span>year<span class="dim">:</span> <span class="num">2025</span><span class="dim">,</span> month<span class="dim">:</span> <span class="num">12</span><span class="dim">})</span>
+  <span class="fn">cashRateTarget</span><span class="dim">(</span>
+    start<span class="dim">: {</span>year<span class="dim">:</span> <span class="num">2025</span><span class="dim">,</span> month<span class="dim">:</span> <span class="num">1</span><span class="dim">},</span>
+    end<span class="dim">: {</span>year<span class="dim">:</span> <span class="num">2025</span><span class="dim">,</span> month<span class="dim">:</span> <span class="num">12</span><span class="dim">})</span>
 <span class="dim">}</span>
             </div>
           </div>
@@ -590,13 +587,17 @@
               <span class="window-label">sound-studies — composer thread</span>
             </div>
             <div class="code-body">
-<span class="cmt">// Multiple concurrent voices</span>
-<span class="kw">for</span> pitch <span class="kw">in</span> PITCHES<span class="dim">.</span><span class="fn">iter</span><span class="dim">()</span> <span class="dim">{</span>
-  tx<span class="dim">.</span><span class="fn">send</span><span class="dim">(</span><span class="typ">NoteOn</span><span class="dim">(</span>pitch<span class="dim">,</span> velocity<span class="dim">));</span>
-  thread<span class="dim">::</span><span class="fn">sleep</span><span class="dim">(</span>dur<span class="dim">);</span>
-  tx<span class="dim">.</span><span class="fn">send</span><span class="dim">(</span><span class="typ">NoteOff</span><span class="dim">(</span>pitch<span class="dim">));</span>
-<span class="dim">}</span>
-<span class="cmt">// → synth engine → cpal audio output</span>
+<span class="cmt">// Two voices, cycling pitches across threads</span>
+<span class="kw">let</span> p1 <span class="dim">=</span> <span class="dim">*</span>p_iter<span class="dim">.</span><span class="fn">next</span><span class="dim">().</span><span class="fn">unwrap</span><span class="dim">()</span> <span class="kw">as</span> <span class="typ">u8</span>
+         <span class="dim">+</span> <span class="dim">((</span>idx <span class="dim">%</span> <span class="num">2</span><span class="dim">) *</span> <span class="num">7</span><span class="dim">)</span> <span class="kw">as</span> <span class="typ">u8</span><span class="dim">;</span>
+<span class="kw">let</span> p2 <span class="dim">=</span> <span class="dim">*</span>p_iter_2<span class="dim">.</span><span class="fn">next</span><span class="dim">().</span><span class="fn">unwrap</span><span class="dim">()</span> <span class="kw">as</span> <span class="typ">u8</span>
+         <span class="dim">+</span> <span class="dim">((</span>idx <span class="dim">%</span> <span class="num">2</span><span class="dim">) *</span> <span class="num">7</span><span class="dim">)</span> <span class="kw">as</span> <span class="typ">u8</span><span class="dim">;</span>
+tx<span class="dim">.</span><span class="fn">send</span><span class="dim">(</span><span class="typ">NoteOn</span><span class="dim">(</span>p1<span class="dim">)).</span><span class="fn">unwrap</span><span class="dim">();</span>
+tx<span class="dim">.</span><span class="fn">send</span><span class="dim">(</span><span class="typ">NoteOn</span><span class="dim">(</span>p2<span class="dim">)).</span><span class="fn">unwrap</span><span class="dim">();</span>
+<span class="kw">let</span> now <span class="dim">=</span> <span class="typ">Instant</span><span class="dim">::</span><span class="fn">now</span><span class="dim">();</span>
+<span class="kw">while</span> now<span class="dim">.</span><span class="fn">elapsed</span><span class="dim">() <</span> <span class="typ">Duration</span><span class="dim">::</span><span class="fn">from_secs_f32</span><span class="dim">(</span>d1<span class="dim">) {}</span>
+tx<span class="dim">.</span><span class="fn">send</span><span class="dim">(</span><span class="typ">NoteOff</span><span class="dim">(</span>p1<span class="dim">));</span> tx<span class="dim">.</span><span class="fn">send</span><span class="dim">(</span><span class="typ">NoteOff</span><span class="dim">(</span>p2<span class="dim">));</span>
+<span class="cmt">// → synth (BitSet phases) → cpal output</span>
             </div>
           </div>
           <div class="card-content">
